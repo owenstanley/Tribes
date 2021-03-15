@@ -15,7 +15,6 @@ import utils.Vector2d;
 import utils.graph.PathNode;
 import utils.graph.Pathfinder;
 
-import java.io.Console;
 import java.util.*;
 
 import static core.Types.BUILDING.*;
@@ -122,11 +121,14 @@ public class Tribe extends Actor {
 
     private void init() {
         techTree = new TechnologyTree();
-        if (!getName().equals("Luxidoor")){
-            Types.TECHNOLOGY initTech = tribe.getInitialTech();
-            techTree.doResearch(initTech);
+        Types.TECHNOLOGY initTech = tribe.getInitialTech();
+        // checking if tribe starts with initial tech
+        if (!(initTech == null)){
+            // if so assign initTech and update score
+            techTree.doResearchInit(initTech);
             score = initTech.getPoints();
         }
+
         citiesID = new ArrayList<>();
         stars = TribesConfig.INITIAL_STARS;
         tribesMet = new ArrayList<>();
